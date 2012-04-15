@@ -19,38 +19,31 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.util.*;
-
-import android.app.SearchManager;
-import android.content.*;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.*;
-import android.widget.RelativeLayout;
-
+import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
+import org.geometerplus.android.fbreader.tips.TipsActivity;
+import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.fbreader.bookmodel.BookModel;
+import org.geometerplus.fbreader.fbreader.ActionCode;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.library.Book;
+import org.geometerplus.fbreader.tips.TipsManager;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
-
-import org.geometerplus.zlibrary.text.view.ZLTextView;
 import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
-
+import org.geometerplus.zlibrary.text.view.ZLTextView;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidActivity;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidApplication;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
 
-import org.geometerplus.fbreader.fbreader.ActionCode;
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-import org.geometerplus.fbreader.bookmodel.BookModel;
-import org.geometerplus.fbreader.library.Book;
-import org.geometerplus.fbreader.tips.TipsManager;
-
-import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
-import org.geometerplus.android.fbreader.library.KillerCallback;
-import org.geometerplus.android.fbreader.api.*;
-import org.geometerplus.android.fbreader.tips.TipsActivity;
-
-import org.geometerplus.android.util.UIUtil;
+import android.app.SearchManager;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 public final class FBReader extends ZLAndroidActivity {
 	public static final String BOOK_PATH_KEY = "BookPath";
@@ -66,31 +59,31 @@ public final class FBReader extends ZLAndroidActivity {
 	private int myFullScreenFlag;
 
 	private static final String PLUGIN_ACTION_PREFIX = "___";
-	private final List<PluginApi.ActionInfo> myPluginActions =
-		new LinkedList<PluginApi.ActionInfo>();
-	private final BroadcastReceiver myPluginInfoReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			final ArrayList<PluginApi.ActionInfo> actions = getResultExtras(true).<PluginApi.ActionInfo>getParcelableArrayList(PluginApi.PluginInfo.KEY);
-			if (actions != null) {
-				synchronized (myPluginActions) {
-					final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
-					int index = 0;
-					while (index < myPluginActions.size()) {
-						fbReader.removeAction(PLUGIN_ACTION_PREFIX + index++);
-					}
-					myPluginActions.addAll(actions);
-					index = 0;
-					for (PluginApi.ActionInfo info : myPluginActions) {
-						fbReader.addAction(
-							PLUGIN_ACTION_PREFIX + index++,
-							new RunPluginAction(FBReader.this, fbReader, info.getId())
-						);
-					}
-				}
-			}
-		}
-	};
+//	private final List<PluginApi.ActionInfo> myPluginActions =
+//		new LinkedList<PluginApi.ActionInfo>();
+//	private final BroadcastReceiver myPluginInfoReceiver = new BroadcastReceiver() {
+//		@Override
+//		public void onReceive(Context context, Intent intent) {
+//			final ArrayList<PluginApi.ActionInfo> actions = getResultExtras(true).<PluginApi.ActionInfo>getParcelableArrayList(PluginApi.PluginInfo.KEY);
+//			if (actions != null) {
+//				synchronized (myPluginActions) {
+//					final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
+//					int index = 0;
+//					while (index < myPluginActions.size()) {
+//						fbReader.removeAction(PLUGIN_ACTION_PREFIX + index++);
+//					}
+//					myPluginActions.addAll(actions);
+//					index = 0;
+//					for (PluginApi.ActionInfo info : myPluginActions) {
+//						fbReader.addAction(
+//							PLUGIN_ACTION_PREFIX + index++,
+//							new RunPluginAction(FBReader.this, fbReader, info.getId())
+//						);
+//					}
+//				}
+//			}
+//		}
+//	};
 
 	@Override
 	protected ZLFile fileFromIntent(Intent intent) {
@@ -140,12 +133,12 @@ public final class FBReader extends ZLAndroidActivity {
 			new SelectionPopup(fbReader);
 		}
 
-		fbReader.addAction(ActionCode.SHOW_LIBRARY, new ShowLibraryAction(this, fbReader));
+//		fbReader.addAction(ActionCode.SHOW_LIBRARY, new ShowLibraryAction(this, fbReader));
 		fbReader.addAction(ActionCode.SHOW_PREFERENCES, new ShowPreferencesAction(this, fbReader));
 		fbReader.addAction(ActionCode.SHOW_BOOK_INFO, new ShowBookInfoAction(this, fbReader));
 		fbReader.addAction(ActionCode.SHOW_TOC, new ShowTOCAction(this, fbReader));
-		fbReader.addAction(ActionCode.SHOW_BOOKMARKS, new ShowBookmarksAction(this, fbReader));
-		fbReader.addAction(ActionCode.SHOW_NETWORK_LIBRARY, new ShowNetworkLibraryAction(this, fbReader));
+//		fbReader.addAction(ActionCode.SHOW_BOOKMARKS, new ShowBookmarksAction(this, fbReader));
+//		fbReader.addAction(ActionCode.SHOW_NETWORK_LIBRARY, new ShowNetworkLibraryAction(this, fbReader));
 		
 		fbReader.addAction(ActionCode.SHOW_MENU, new ShowMenuAction(this, fbReader));
 		fbReader.addAction(ActionCode.SHOW_NAVIGATION, new ShowNavigationAction(this, fbReader));
@@ -159,7 +152,7 @@ public final class FBReader extends ZLAndroidActivity {
 		fbReader.addAction(ActionCode.SELECTION_TRANSLATE, new SelectionTranslateAction(this, fbReader));
 		fbReader.addAction(ActionCode.SELECTION_BOOKMARK, new SelectionBookmarkAction(this, fbReader));
 
-		fbReader.addAction(ActionCode.PROCESS_HYPERLINK, new ProcessHyperlinkAction(this, fbReader));
+//		fbReader.addAction(ActionCode.PROCESS_HYPERLINK, new ProcessHyperlinkAction(this, fbReader));
 
 		fbReader.addAction(ActionCode.SHOW_CANCEL_MENU, new ShowCancelMenuAction(this, fbReader));
 
@@ -264,23 +257,23 @@ public final class FBReader extends ZLAndroidActivity {
 
 	private void initPluginActions() {
 		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
-		synchronized (myPluginActions) {
-			int index = 0;
-			while (index < myPluginActions.size()) {
-				fbReader.removeAction(PLUGIN_ACTION_PREFIX + index++);
-			}
-			myPluginActions.clear();
-		}
+//		synchronized (myPluginActions) {
+//			int index = 0;
+//			while (index < myPluginActions.size()) {
+//				fbReader.removeAction(PLUGIN_ACTION_PREFIX + index++);
+//			}
+//			myPluginActions.clear();
+//		}
 
-		sendOrderedBroadcast(
-			new Intent(PluginApi.ACTION_REGISTER),
-			null,
-			myPluginInfoReceiver,
-			null,
-			RESULT_OK,
-			null,
-			null
-		);
+//		sendOrderedBroadcast(
+//			new Intent(PluginApi.ACTION_REGISTER),
+//			null,
+//			myPluginInfoReceiver,
+//			null,
+//			RESULT_OK,
+//			null,
+//			null
+//		);
 	}
 
 	private class TipRunner extends Thread {
@@ -313,17 +306,17 @@ public final class FBReader extends ZLAndroidActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		try {
-			sendBroadcast(new Intent(getApplicationContext(), KillerCallback.class));
-		} catch (Throwable t) {
-		}
+//		try {
+//			sendBroadcast(new Intent(getApplicationContext(), KillerCallback.class));
+//		} catch (Throwable t) {
+//		}
 		PopupPanel.restoreVisibilities(FBReaderApp.Instance());
-		ApiServerImplementation.sendEvent(this, ApiListener.EVENT_READ_MODE_OPENED);
+//		ApiServerImplementation.sendEvent(this, ApiListener.EVENT_READ_MODE_OPENED);
 	}
 
 	@Override
 	public void onStop() {
-		ApiServerImplementation.sendEvent(this, ApiListener.EVENT_READ_MODE_CLOSED);
+//		ApiServerImplementation.sendEvent(this, ApiListener.EVENT_READ_MODE_CLOSED);
 		PopupPanel.removeAllWindows(FBReaderApp.Instance(), this);
 		super.onStop();
 	}
@@ -457,18 +450,18 @@ public final class FBReader extends ZLAndroidActivity {
 		addMenuItem(menu, ActionCode.INCREASE_FONT);
 		addMenuItem(menu, ActionCode.DECREASE_FONT);
 		addMenuItem(menu, ActionCode.SHOW_NAVIGATION);
-		synchronized (myPluginActions) {
-			int index = 0;
-			for (PluginApi.ActionInfo info : myPluginActions) {
-				if (info instanceof PluginApi.MenuActionInfo) {
-					addMenuItem(
-						menu,
-						PLUGIN_ACTION_PREFIX + index++,
-						((PluginApi.MenuActionInfo)info).MenuItemName
-					);
-				}
-			}
-		}
+//		synchronized (myPluginActions) {
+//			int index = 0;
+//			for (PluginApi.ActionInfo info : myPluginActions) {
+//				if (info instanceof PluginApi.MenuActionInfo) {
+//					addMenuItem(
+//						menu,
+//						PLUGIN_ACTION_PREFIX + index++,
+//						((PluginApi.MenuActionInfo)info).MenuItemName
+//					);
+//				}
+//			}
+//		}
 
 		final ZLAndroidApplication application = (ZLAndroidApplication)getApplication();
 		application.myMainWindow.refresh();

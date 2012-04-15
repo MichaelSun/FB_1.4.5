@@ -49,7 +49,6 @@ import org.geometerplus.fbreader.library.*;
 import org.geometerplus.fbreader.network.HtmlUtil;
 
 import org.geometerplus.android.fbreader.FBReader;
-import org.geometerplus.android.fbreader.preferences.EditBookInfoActivity;
 
 public class BookInfoActivity extends Activity {
 	private static final boolean ENABLE_EXTENDED_FILE_INFO = false;
@@ -65,9 +64,6 @@ public class BookInfoActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		Thread.setDefaultUncaughtExceptionHandler(
-			new org.geometerplus.zlibrary.ui.android.library.UncaughtExceptionHandler(this)
-		);
 
 		final String path = getIntent().getStringExtra(CURRENT_BOOK_PATH_KEY);
 		myDontReloadBook = getIntent().getBooleanExtra(FROM_READING_MODE_KEY, false);
@@ -114,15 +110,15 @@ public class BookInfoActivity extends Activity {
 				}
 			}
 		});
-		setupButton(R.id.book_info_button_edit, "editInfo", new View.OnClickListener() {
-			public void onClick(View view) {
-				startActivityForResult(
-					new Intent(getApplicationContext(), EditBookInfoActivity.class)
-						.putExtra(CURRENT_BOOK_PATH_KEY, myFile.getPath()),
-					1
-				);
-			}
-		});
+//		setupButton(R.id.book_info_button_edit, "editInfo", new View.OnClickListener() {
+//			public void onClick(View view) {
+//				startActivityForResult(
+//					new Intent(getApplicationContext(), EditBookInfoActivity.class)
+//						.putExtra(CURRENT_BOOK_PATH_KEY, myFile.getPath()),
+//					1
+//				);
+//			}
+//		});
 		setupButton(R.id.book_info_button_reload, "reloadInfo", new View.OnClickListener() {
 			public void onClick(View view) {
 				if (book != null) {

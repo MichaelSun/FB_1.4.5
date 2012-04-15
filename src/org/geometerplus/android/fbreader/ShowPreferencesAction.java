@@ -23,8 +23,6 @@ import android.content.Intent;
 
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
-import org.geometerplus.android.fbreader.preferences.PreferenceActivity;
-
 class ShowPreferencesAction extends FBAndroidAction {
 	ShowPreferencesAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
@@ -32,11 +30,11 @@ class ShowPreferencesAction extends FBAndroidAction {
 
 	@Override
 	protected void run(Object ... params) {
-		final Intent intent =
-			new Intent(BaseActivity.getApplicationContext(), PreferenceActivity.class);
-		if (params.length == 1 && params[0] instanceof String) {
-			intent.putExtra(PreferenceActivity.SCREEN_KEY, (String)params[0]);
-		}
-		BaseActivity.startActivityForResult(intent, FBReader.REQUEST_PREFERENCES);
+//		final Intent intent =
+//			new Intent(BaseActivity.getApplicationContext(), PreferenceActivity.class);
+//		if (params.length == 1 && params[0] instanceof String) {
+//			intent.putExtra(PreferenceActivity.SCREEN_KEY, (String)params[0]);
+//		}
+//		BaseActivity.startActivityForResult(intent, FBReader.REQUEST_PREFERENCES);
 	}
 }

@@ -84,8 +84,6 @@ public abstract class ZLAndroidActivity extends Activity {
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
-		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));
-
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

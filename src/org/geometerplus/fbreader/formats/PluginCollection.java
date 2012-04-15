@@ -29,9 +29,9 @@ import org.geometerplus.fbreader.formats.pdb.MobipocketPlugin;
 import org.geometerplus.fbreader.filetype.*;
 
 public class PluginCollection {
-	static {
-		System.loadLibrary("NativeFormats-v2");
-	}
+//	static {
+//		System.loadLibrary("NativeFormats-v2");
+//	}
 
 	private static PluginCollection ourInstance;
 
@@ -43,10 +43,10 @@ public class PluginCollection {
 			ourInstance = new PluginCollection();
 
 			// This code can not be moved to constructor because nativePlugins() is a native method
-			for (NativeFormatPlugin p : ourInstance.nativePlugins()) {
-				ourInstance.addPlugin(p);
-				System.err.println("native plugin: " + p);
-			}
+//			for (NativeFormatPlugin p : ourInstance.nativePlugins()) {
+//				ourInstance.addPlugin(p);
+//				System.err.println("native plugin: " + p);
+//			}
 		}
 		return ourInstance;
 	}

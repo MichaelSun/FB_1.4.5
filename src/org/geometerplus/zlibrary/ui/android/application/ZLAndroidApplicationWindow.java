@@ -19,26 +19,19 @@
 
 package org.geometerplus.zlibrary.ui.android.application;
 
-import java.util.*;
-import java.io.*;
-
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import org.geometerplus.zlibrary.core.application.ZLApplication;
-import org.geometerplus.zlibrary.core.application.ZLApplicationWindow;
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.core.view.ZLViewWidget;
-
-import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
-import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.zlibrary.core.application.ZLApplication;
+import org.geometerplus.zlibrary.core.application.ZLApplicationWindow;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.view.ZLViewWidget;
+import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+
+import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 	private final HashMap<MenuItem,String> myMenuItemMap = new HashMap<MenuItem,String>();
@@ -107,32 +100,32 @@ public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 
 	@Override
 	protected void processException(Exception exception) {
-		exception.printStackTrace();
-
-		final Activity activity = 
-			((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
-		final Intent intent = new Intent(
-			"android.fbreader.action.ERROR",
-			new Uri.Builder().scheme(exception.getClass().getSimpleName()).build()
-		);
-		intent.putExtra(ErrorKeys.MESSAGE, exception.getMessage());
-		final StringWriter stackTrace = new StringWriter();
-		exception.printStackTrace(new PrintWriter(stackTrace));
-		intent.putExtra(ErrorKeys.STACKTRACE, stackTrace.toString());
-		/*
-		if (exception instanceof BookReadingException) {
-			final ZLFile file = ((BookReadingException)exception).File;
-			if (file != null) {
-				intent.putExtra("file", file.getPath());
-			}
-		}
-		*/
-		try {
-			activity.startActivity(intent);
-		} catch (ActivityNotFoundException e) {
-			// ignore
-			e.printStackTrace();
-		}
+//		exception.printStackTrace();
+//
+//		final Activity activity = 
+//			((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
+//		final Intent intent = new Intent(
+//			"android.fbreader.action.ERROR",
+//			new Uri.Builder().scheme(exception.getClass().getSimpleName()).build()
+//		);
+//		intent.putExtra(ErrorKeys.MESSAGE, exception.getMessage());
+//		final StringWriter stackTrace = new StringWriter();
+//		exception.printStackTrace(new PrintWriter(stackTrace));
+//		intent.putExtra(ErrorKeys.STACKTRACE, stackTrace.toString());
+//		/*
+//		if (exception instanceof BookReadingException) {
+//			final ZLFile file = ((BookReadingException)exception).File;
+//			if (file != null) {
+//				intent.putExtra("file", file.getPath());
+//			}
+//		}
+//		*/
+//		try {
+//			activity.startActivity(intent);
+//		} catch (ActivityNotFoundException e) {
+//			// ignore
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
