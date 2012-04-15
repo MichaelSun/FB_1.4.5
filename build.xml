@@ -55,7 +55,7 @@
 		<echo message="DONE (Checking if native libraries are up-to-date)"/>
 	</target>
 
-	<target name="resources" depends="init, check.native.libraries">
+	<!-- target name="resources" depends="init, check.native.libraries">
 		<echo message="Cleaning up the 'res/drawable' folder..." />
 		<delete dir="res/drawable/">
 			<files includes="**"/>
@@ -68,9 +68,9 @@
 			<fileset dir="icons/" includes="*/*" />
 		</copy>
 		<echo message="DONE (Copying icons files to 'res/drawable/' folder)" />
-	</target>
+	</target -->
 
-  <target name="-pre-build" depends="init, resources, native">
+  <target name="-pre-build" depends="init ,native">
   </target>
 <!--
   <target name="-pre-compile">
@@ -83,7 +83,7 @@
 		<echo message="Deleting temporary files..." />
 		<delete dir="gen" />
 		<delete dir="bin" />
-		<delete dir="res/drawable" />
+		<!-- delete dir="res/drawable" / -->
 		<delete dir="out" />
 		<delete dir="obj" />
 		<echo message="DONE (Deleting temporary files)" />

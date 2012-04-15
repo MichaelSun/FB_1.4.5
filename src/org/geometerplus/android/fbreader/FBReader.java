@@ -407,7 +407,7 @@ public final class FBReader extends ZLAndroidActivity {
 //		addMenuItem(menu, ActionCode.SEARCH, R.drawable.ic_menu_search);
 //		addMenuItem(menu, ActionCode.SHARE_BOOK, R.drawable.ic_menu_search);
 //		addMenuItem(menu, ActionCode.SHOW_PREFERENCES);
-		addMenuItem(menu, ActionCode.SHOW_BOOK_INFO);
+		addMenuItem(menu, ActionCode.SHOW_BOOK_INFO, R.drawable.ic_menu_library);
 //		final Menu subMenu = addSubMenu(menu, "screenOrientation");
 //		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_SYSTEM);
 //		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_SENSOR);
