@@ -117,25 +117,25 @@ public final class FBReaderApp extends ZLApplication {
 	private Date myJumpTimeStamp;
 
 	public FBReaderApp() {
-		addAction(ActionCode.INCREASE_FONT, new ChangeFontSizeAction(this, +2));
-		addAction(ActionCode.DECREASE_FONT, new ChangeFontSizeAction(this, -2));
+//		addAction(ActionCode.INCREASE_FONT, new ChangeFontSizeAction(this, +2));
+//		addAction(ActionCode.DECREASE_FONT, new ChangeFontSizeAction(this, -2));
 
-		addAction(ActionCode.FIND_NEXT, new FindNextAction(this));
-		addAction(ActionCode.FIND_PREVIOUS, new FindPreviousAction(this));
-		addAction(ActionCode.CLEAR_FIND_RESULTS, new ClearFindResultsAction(this));
+//		addAction(ActionCode.FIND_NEXT, new FindNextAction(this));
+//		addAction(ActionCode.FIND_PREVIOUS, new FindPreviousAction(this));
+//		addAction(ActionCode.CLEAR_FIND_RESULTS, new ClearFindResultsAction(this));
+//
+//		addAction(ActionCode.SELECTION_CLEAR, new SelectionClearAction(this));
 
-		addAction(ActionCode.SELECTION_CLEAR, new SelectionClearAction(this));
+//		addAction(ActionCode.TURN_PAGE_FORWARD, new TurnPageAction(this, true));
+//		addAction(ActionCode.TURN_PAGE_BACK, new TurnPageAction(this, false));
 
-		addAction(ActionCode.TURN_PAGE_FORWARD, new TurnPageAction(this, true));
-		addAction(ActionCode.TURN_PAGE_BACK, new TurnPageAction(this, false));
+//		addAction(ActionCode.MOVE_CURSOR_UP, new MoveCursorAction(this, FBView.Direction.up));
+//		addAction(ActionCode.MOVE_CURSOR_DOWN, new MoveCursorAction(this, FBView.Direction.down));
+//		addAction(ActionCode.MOVE_CURSOR_LEFT, new MoveCursorAction(this, FBView.Direction.rightToLeft));
+//		addAction(ActionCode.MOVE_CURSOR_RIGHT, new MoveCursorAction(this, FBView.Direction.leftToRight));
 
-		addAction(ActionCode.MOVE_CURSOR_UP, new MoveCursorAction(this, FBView.Direction.up));
-		addAction(ActionCode.MOVE_CURSOR_DOWN, new MoveCursorAction(this, FBView.Direction.down));
-		addAction(ActionCode.MOVE_CURSOR_LEFT, new MoveCursorAction(this, FBView.Direction.rightToLeft));
-		addAction(ActionCode.MOVE_CURSOR_RIGHT, new MoveCursorAction(this, FBView.Direction.leftToRight));
-
-		addAction(ActionCode.VOLUME_KEY_SCROLL_FORWARD, new VolumeKeyTurnPageAction(this, true));
-		addAction(ActionCode.VOLUME_KEY_SCROLL_BACK, new VolumeKeyTurnPageAction(this, false));
+//		addAction(ActionCode.VOLUME_KEY_SCROLL_FORWARD, new VolumeKeyTurnPageAction(this, true));
+//		addAction(ActionCode.VOLUME_KEY_SCROLL_BACK, new VolumeKeyTurnPageAction(this, false));
 
 		addAction(ActionCode.SWITCH_TO_DAY_PROFILE, new SwitchProfileAction(this, ColorProfile.DAY));
 		addAction(ActionCode.SWITCH_TO_NIGHT_PROFILE, new SwitchProfileAction(this, ColorProfile.NIGHT));
@@ -400,24 +400,24 @@ public final class FBReaderApp extends ZLApplication {
 
 	public List<CancelActionDescription> getCancelActionsList() {
 		myCancelActionsList.clear();
-		if (ShowLibraryInCancelMenuOption.getValue()) {
-			myCancelActionsList.add(new CancelActionDescription(
-				CancelActionType.library, null
-			));
-		}
-		if (ShowNetworkLibraryInCancelMenuOption.getValue()) {
-			myCancelActionsList.add(new CancelActionDescription(
-				CancelActionType.networkLibrary, null
-			));
-		}
-		if (ShowPreviousBookInCancelMenuOption.getValue()) {
-			final Book previousBook = Library.Instance().getPreviousBook();
-			if (previousBook != null) {
-				myCancelActionsList.add(new CancelActionDescription(
-					CancelActionType.previousBook, previousBook.getTitle()
-				));
-			}
-		}
+//		if (ShowLibraryInCancelMenuOption.getValue()) {
+//			myCancelActionsList.add(new CancelActionDescription(
+//				CancelActionType.library, null
+//			));
+//		}
+//		if (ShowNetworkLibraryInCancelMenuOption.getValue()) {
+//			myCancelActionsList.add(new CancelActionDescription(
+//				CancelActionType.networkLibrary, null
+//			));
+//		}
+//		if (ShowPreviousBookInCancelMenuOption.getValue()) {
+//			final Book previousBook = Library.Instance().getPreviousBook();
+//			if (previousBook != null) {
+//				myCancelActionsList.add(new CancelActionDescription(
+//					CancelActionType.previousBook, previousBook.getTitle()
+//				));
+//			}
+//		}
 		if (ShowPositionsInCancelMenuOption.getValue()) {
 			if (Model != null && Model.Book != null) {
 				for (Bookmark bookmark : Library.Instance().invisibleBookmarks(Model.Book)) {

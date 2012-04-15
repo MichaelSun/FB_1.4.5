@@ -28,13 +28,13 @@
 			android:maxLines="2"
 			android:layout_height="wrap_content"
 		/>
-		<Button
+		<!-- Button
 			android:id="@+id/book_info_button_edit"
 			android:layout_width="0dip"
 			android:layout_weight="1"
 			android:maxLines="2"
 			android:layout_height="wrap_content"
-		/>
+		/ -->
 		<Button
 			android:id="@+id/book_info_button_reload"
 			android:layout_width="0dip"
@@ -98,7 +98,7 @@
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 			/>
-			<TextView
+			<!-- TextView
 				android:id="@+id/file_info_title"
 				style="?android:attr/listSeparatorTextViewStyle"
 			/>
@@ -114,7 +114,7 @@
 				<include layout="@layout/book_info_pair" android:id="@+id/file_type" />
 				<include layout="@layout/book_info_pair" android:id="@+id/file_size" />
 				<include layout="@layout/book_info_pair" android:id="@+id/file_time" />
-			</LinearLayout>
+			</LinearLayout -->
 		</LinearLayout>
 	</ScrollView>
 </RelativeLayout>
