@@ -90,24 +90,26 @@ public final class Library extends AbstractLibrary {
 		return parentTree != null ? (LibraryTree)parentTree.getSubTree(key.Id) : null;
 	}
 
-	public static ZLResourceFile getHelpFile() {
-		final Locale locale = Locale.getDefault();
-
-		ZLResourceFile file = ZLResourceFile.createResourceFile(
-			"data/help/MiniHelp." + locale.getLanguage() + "_" + locale.getCountry() + ".fb2"
-		);
-		if (file.exists()) {
-			return file;
-		}
-
-		file = ZLResourceFile.createResourceFile(
-			"data/help/MiniHelp." + locale.getLanguage() + ".fb2"
-		);
-		if (file.exists()) {
-			return file;
-		}
-
-		return ZLResourceFile.createResourceFile("data/help/MiniHelp.en.fb2");
+	public static ZLFile getHelpFile() {
+//		final Locale locale = Locale.getDefault();
+//
+//		ZLResourceFile file = ZLResourceFile.createResourceFile(
+//			"data/help/MiniHelp." + locale.getLanguage() + "_" + locale.getCountry() + ".fb2"
+//		);
+//		if (file.exists()) {
+//			return file;
+//		}
+//
+//		file = ZLResourceFile.createResourceFile(
+//			"data/help/MiniHelp." + locale.getLanguage() + ".fb2"
+//		);
+//		if (file.exists()) {
+//			return file;
+//		}
+//
+//		return ZLResourceFile.createResourceFile("data/help/MiniHelp.en.fb2");
+	    
+	    return ZLFile.createFileByPath("/sdcard/document/epubReader/epub/4655865d5472164e9f265bc459fa915.epub");
 	}
 
 	private void collectBooks(

@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader;
 
 import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
-import org.geometerplus.android.fbreader.tips.TipsActivity;
 import org.geometerplus.android.util.UIUtil;
 import org.geometerplus.fbreader.bookmodel.BookModel;
 import org.geometerplus.fbreader.fbreader.ActionCode;
@@ -103,7 +102,6 @@ public final class FBReader extends ZLAndroidActivity {
 			public void run() {
 				runOnUiThread(new Runnable() {
 					public void run() {
-						new TipRunner().start();
 						DictionaryUtil.init(FBReader.this);
 					}
 				});
@@ -274,33 +272,6 @@ public final class FBReader extends ZLAndroidActivity {
 //			null,
 //			null
 //		);
-	}
-
-	private class TipRunner extends Thread {
-		TipRunner() {
-			setPriority(MIN_PRIORITY);
-		}
-
-		public void run() {
-			final TipsManager manager = TipsManager.Instance();
-			switch (manager.requiredAction()) {
-				case Initialize:
-					startActivity(new Intent(
-						TipsActivity.INITIALIZE_ACTION, null, FBReader.this, TipsActivity.class
-					));
-					break;
-				case Show:
-					startActivity(new Intent(
-						TipsActivity.SHOW_TIP_ACTION, null, FBReader.this, TipsActivity.class
-					));
-					break;
-				case Download:
-					manager.startDownloading();
-					break;
-				case None:
-					break;
-			}
-		}
 	}
 
 	@Override
