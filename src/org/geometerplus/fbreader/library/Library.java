@@ -109,7 +109,8 @@ public final class Library extends AbstractLibrary {
 //
 //		return ZLResourceFile.createResourceFile("data/help/MiniHelp.en.fb2");
 	    
-	    return ZLFile.createFileByPath("/sdcard/document/epubReader/epub/4655865d5472164e9f265bc459fa915.epub");
+//	    return ZLFile.createFileByPath("/sdcard/document/epubReader/epub/4655865d5472164e9f265bc459fa915.epub");
+	    return ZLFile.createFileByPath("book/book.epub");
 	}
 
 	private void collectBooks(

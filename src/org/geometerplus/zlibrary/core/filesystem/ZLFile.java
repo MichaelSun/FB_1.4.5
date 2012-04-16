@@ -88,7 +88,8 @@ public abstract class ZLFile {
 		} else if ((parent instanceof ZLPhysicalFile) && (parent.getParent() == null)) {
 			// parent is a directory
 			file = new ZLPhysicalFile(parent.getPath() + '/' + name);
-		} else if (parent instanceof ZLResourceFile) {
+		} else if ((parent instanceof ZLResourceFile)
+		            && !"epub".equals(parent.getExtension())) {
 			file = ZLResourceFile.createResourceFile((ZLResourceFile)parent, name);
 		} else {
 			file = ZLArchiveEntryFile.createArchiveEntryFile(parent, name);
@@ -112,7 +113,7 @@ public abstract class ZLFile {
 			return cached;
 		}
 
-		if (!path.startsWith("/")) {
+		if (!path.startsWith("/") && !path.contains(":")) {
 			while (path.startsWith("./")) {
 				path = path.substring(2);
 			}
