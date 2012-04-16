@@ -31,8 +31,8 @@ import android.widget.ImageView;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.image.ZLLoadableImage;
 
-import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
-import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
+import org.geometerplus.zlibrary.ui.michaelxingchen.image.ZLAndroidImageManager;
+import org.geometerplus.zlibrary.ui.michaelxingchen.image.ZLAndroidImageData;
 
 import org.geometerplus.fbreader.tree.FBTree;
 

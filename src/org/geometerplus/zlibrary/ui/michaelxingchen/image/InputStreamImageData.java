@@ -17,23 +17,33 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.ui.android.library;
+package org.geometerplus.zlibrary.ui.michaelxingchen.image;
 
-import android.app.Application;
+import java.io.InputStream;
+import java.io.IOException;
 
-import org.geometerplus.zlibrary.core.sqliteconfig.ZLSQLiteConfig;
+import android.graphics.*;
 
-import org.geometerplus.zlibrary.ui.android.application.ZLAndroidApplicationWindow;
-import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
+import org.geometerplus.zlibrary.core.image.ZLSingleImage;
 
-public abstract class ZLAndroidApplication extends Application {
-	public ZLAndroidApplicationWindow myMainWindow;
+final class InputStreamImageData extends ZLAndroidImageData {
+	private final ZLSingleImage myImage;
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		new ZLSQLiteConfig(this);
-		new ZLAndroidImageManager();
-		new ZLAndroidLibrary(this);
+	InputStreamImageData(ZLSingleImage image) {
+		myImage = image;
+	}
+
+	protected Bitmap decodeWithOptions(BitmapFactory.Options options) {
+		final InputStream stream = myImage.inputStream();
+		if (stream == null) {
+			return null;
+		}
+
+		final Bitmap bmp = BitmapFactory.decodeStream(stream, new Rect(), options);
+		try {
+			stream.close();
+		} catch (IOException e) {
+		}
+		return bmp;
 	}
 }

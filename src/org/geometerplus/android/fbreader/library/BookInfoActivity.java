@@ -41,9 +41,9 @@ import org.geometerplus.zlibrary.core.image.ZLLoadableImage;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
 
-import org.geometerplus.zlibrary.ui.android.R;
-import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
-import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
+import org.geometerplus.zlibrary.ui.michaelxingchen.R;
+import org.geometerplus.zlibrary.ui.michaelxingchen.image.ZLAndroidImageData;
+import org.geometerplus.zlibrary.ui.michaelxingchen.image.ZLAndroidImageManager;
 
 import org.geometerplus.fbreader.library.*;
 import org.geometerplus.fbreader.network.HtmlUtil;
@@ -119,15 +119,15 @@ public class BookInfoActivity extends Activity {
 //				);
 //			}
 //		});
-		setupButton(R.id.book_info_button_reload, "reloadInfo", new View.OnClickListener() {
-			public void onClick(View view) {
-				if (book != null) {
-					book.reloadInfoFromFile();
-					setupBookInfo(book);
-					myDontReloadBook = false;
-				}
-			}
-		});
+//		setupButton(R.id.book_info_button_reload, "reloadInfo", new View.OnClickListener() {
+//			public void onClick(View view) {
+//				if (book != null) {
+//					book.reloadInfoFromFile();
+//					setupBookInfo(book);
+//					myDontReloadBook = false;
+//				}
+//			}
+//		});
 
 		final View root = findViewById(R.id.book_info_root);
 		root.invalidate();

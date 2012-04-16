@@ -17,14 +17,14 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.ui.android.view;
+package org.geometerplus.zlibrary.ui.michaelxingchen.view;
 
 import android.graphics.*;
 import android.util.FloatMath;
 
 import org.geometerplus.zlibrary.core.view.ZLView;
 
-import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
+import org.geometerplus.zlibrary.ui.michaelxingchen.util.ZLAndroidColorUtil;
 
 class CurlAnimationProvider extends AnimationProvider {
 	private final Paint myPaint = new Paint();
