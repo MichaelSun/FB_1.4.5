@@ -19,43 +19,69 @@
 
 package org.geometerplus.zlibrary.ui.android.view;
 
-import android.content.Context;
-import android.graphics.*;
-import android.view.*;
-import android.util.AttributeSet;
+import net.youmi.android.appoffers.YoumiOffersManager;
+import net.youmi.android.appoffers.YoumiPointsManager;
 
+import org.geometerplus.android.fbreader.Config;
+import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
-import org.geometerplus.zlibrary.core.application.ZLApplication;
-
+import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidActivity;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.preference.PreferenceManager;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
 
 public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongClickListener {
 	private final Paint myPaint = new Paint();
 	private final BitmapManager myBitmapManager = new BitmapManager(this);
 	private Bitmap myFooterBitmap;
+	
+    private int mTouchCount;
+    private Context mContext;
+    private boolean mCancelThisTouch;
+
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
 	public ZLAndroidWidget(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		init();
+		init(context);
 	}
 
 	public ZLAndroidWidget(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init();
+		init(context);
 	}
 
 	public ZLAndroidWidget(Context context) {
 		super(context);
-		init();
+		init(context);
 	}
 
-	private void init() {
+	private void init(Context context) {
 		// next line prevent ignoring first onKeyDown DPad event
 		// after any dialog was closed
+	    mContext = context;
 		setFocusableInTouchMode(true);
 		setDrawingCacheEnabled(false);
 		setOnLongClickListener(this);
+		
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mEditor = mSharedPreferences.edit();
+        
+        mTouchCount = mSharedPreferences.getInt("count", 0);
 	}
 
 	@Override
@@ -307,6 +333,11 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 		final ZLView view = ZLApplication.Instance().getCurrentView();
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_UP:
+                if (mCancelThisTouch) {
+                    mCancelThisTouch = false;
+                    break;
+                }			    
+			    
 				if (myPendingDoubleTap) {
 					view.onFingerDoubleTap(x, y);
 				} if (myLongClickPerformed) {
@@ -345,6 +376,42 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 				myScreenIsTouched = true;
 				myPressedX = x;
 				myPressedY = y;
+				
+                mTouchCount++;
+                mEditor.putInt("count", mTouchCount);
+                mEditor.commit();
+                if (mTouchCount > Config.TOUCH_COUNT) {
+                    if (mTouchCount == Config.TOUCH_NEXT_COUNT
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_3
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_4
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_5
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_6
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_7
+                            || mTouchCount == Config.TOUCH_NEXT_COUNT_8) {
+                        YoumiPointsManager.spendPoints(mContext, 100);
+                    }
+                    
+                    int count = YoumiPointsManager.queryPoints(mContext);
+                    if (count < 100) {
+                        AlertDialog dialog = new AlertDialog.Builder(mContext)
+                                                    .setTitle("提示")
+                                                    .setMessage(mContext.getString(R.string.download_tips))
+                                                    .setPositiveButton("下载", new DialogInterface.OnClickListener() {
+                                                        public void  onClick(DialogInterface dialog, int which) {
+                                                            YoumiOffersManager.showOffers(mContext,
+                                                                    YoumiOffersManager.TYPE_REWARD_OFFERS);
+                                                        }
+                                                    })
+                                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                        public void  onClick(DialogInterface dialog, int which) {
+                                                        }
+                                                    })
+                                                    .create();
+                        dialog.show();
+                        mCancelThisTouch = true;
+                    }
+                }
+				
 				break;
 			case MotionEvent.ACTION_MOVE:
 			{
@@ -382,8 +449,9 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 	}
 
 	public boolean onLongClick(View v) {
-		final ZLView view = ZLApplication.Instance().getCurrentView();
-		return view.onFingerLongPress(myPressedX, myPressedY);
+//		final ZLView view = ZLApplication.Instance().getCurrentView();
+//		return view.onFingerLongPress(myPressedX, myPressedY);
+	    return false;
 	}
 
 	private int myKeyUnderTracking = -1;

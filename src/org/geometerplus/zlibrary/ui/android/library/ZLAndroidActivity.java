@@ -35,6 +35,8 @@ import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.application.ZLAndroidApplicationWindow;
 
+import com.mobclick.android.MobclickAgent;
+
 public abstract class ZLAndroidActivity extends Activity {
 	protected abstract ZLApplication createApplication();
 
@@ -151,6 +153,8 @@ public abstract class ZLAndroidActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		MobclickAgent.onResume(this);
+		
 		switchWakeLock(
 			getLibrary().BatteryLevelToTurnScreenOffOption.getValue() <
 			ZLApplication.Instance().getBatteryLevel()
@@ -172,6 +176,8 @@ public abstract class ZLAndroidActivity extends Activity {
 
 	@Override
 	public void onPause() {
+	    MobclickAgent.onPause(this);
+	    
 		unregisterReceiver(myBatteryInfoReceiver);
 		ZLApplication.Instance().stopTimer();
 		switchWakeLock(false);

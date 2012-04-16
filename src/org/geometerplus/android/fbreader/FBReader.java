@@ -19,6 +19,9 @@
 
 package org.geometerplus.android.fbreader;
 
+import net.youmi.android.AdManager;
+import net.youmi.android.appoffers.YoumiOffersManager;
+
 import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
 import org.geometerplus.android.util.UIUtil;
 import org.geometerplus.fbreader.bookmodel.BookModel;
@@ -33,6 +36,8 @@ import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidActivity;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidApplication;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+
+import com.mobclick.android.MobclickAgent;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -119,7 +124,14 @@ public final class FBReader extends ZLAndroidActivity {
 		getWindow().setFlags(
 			WindowManager.LayoutParams.FLAG_FULLSCREEN, myFullScreenFlag
 		);
+		
+        YoumiOffersManager.init(this, Config.APP_ID, Config.APP_SECRET_KEY);
+        AdManager.init(Config.APP_ID, Config.APP_SECRET_KEY, Config.REFRESH_DELAY, false);
 
+        MobclickAgent.setSessionContinueMillis(2 * 60 * 1000);
+        MobclickAgent.onError(this);
+        MobclickAgent.setUpdateOnlyWifi(false);
+        
 //		if (fbReader.getPopupById(TextSearchPopup.ID) == null) {
 //			new TextSearchPopup(fbReader);
 //		}
